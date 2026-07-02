@@ -121,3 +121,29 @@ https://www.parisaeroport.fr/en/passengers/transport-parking/taxi/cdg
 
 Official airport taxi information:
 https://www.g7.fr/en/discover-our-services/taxi-roissy-cdg-charles-de-gaulle-airport
+
+---
+
+## After Action Review
+
+> Complete this section after visiting.
+
+### Would we do this again?
+
+TODO
+
+### What surprised us?
+
+TODO
+
+### What would we change next time?
+
+TODO
+
+### Favorite Moment
+
+TODO
+
+### Rating
+
+⭐☆☆☆☆

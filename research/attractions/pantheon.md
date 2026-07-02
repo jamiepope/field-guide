@@ -90,3 +90,29 @@ https://www.paris-pantheon.fr/en/visit/visits-and-activities
 Official Ticketing
 
 https://tickets.monuments-nationaux.fr/en-GB/families?site=2007056652440400272
+
+---
+
+## After Action Review
+
+> Complete this section after visiting.
+
+### Would we do this again?
+
+TODO
+
+### What surprised us?
+
+TODO
+
+### What would we change next time?
+
+TODO
+
+### Favorite Moment
+
+TODO
+
+### Rating
+
+⭐☆☆☆☆

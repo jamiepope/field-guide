@@ -65,3 +65,29 @@ https://jardin.senat.fr/en/
 Opening Hours
 
 https://jardin.senat.fr/en/practical-information/opening-hours.html
+
+---
+
+## After Action Review
+
+> Complete this section after visiting.
+
+### Would we do this again?
+
+TODO
+
+### What surprised us?
+
+TODO
+
+### What would we change next time?
+
+TODO
+
+### Favorite Moment
+
+TODO
+
+### Rating
+
+⭐☆☆☆☆

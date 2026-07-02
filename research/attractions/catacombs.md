@@ -70,3 +70,29 @@ The Catacombs are **not wheelchair accessible** and require descending and climb
 Official Catacombs website
 
 https://www.catacombes.paris.fr/en
+
+---
+
+## After Action Review
+
+> Complete this section after visiting.
+
+### Would we do this again?
+
+TODO
+
+### What surprised us?
+
+TODO
+
+### What would we change next time?
+
+TODO
+
+### Favorite Moment
+
+TODO
+
+### Rating
+
+⭐☆☆☆☆

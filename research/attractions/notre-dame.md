@@ -91,3 +91,29 @@ https://www.notredamedeparis.fr/en/visit/practical-information/
 
 Safety Guidelines:
 https://www.notredamedeparis.fr/en/visit/practical-information/safety-guidelines/
+
+---
+
+## After Action Review
+
+> Complete this section after visiting.
+
+### Would we do this again?
+
+TODO
+
+### What surprised us?
+
+TODO
+
+### What would we change next time?
+
+TODO
+
+### Favorite Moment
+
+TODO
+
+### Rating
+
+⭐☆☆☆☆
