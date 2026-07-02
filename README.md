@@ -5,6 +5,23 @@ It stores researched facts, human-readable day plans, logistics, tickets, and tr
 
 No app has been generated yet. The eventual static site should live in `docs/`.
 
+> **Status:** In Progress
+
+## Current Sprint
+
+**Goal**
+
+Complete a fully verified Paris Field Guide before departure.
+
+### Remaining Work
+
+- [ ] Complete attraction research
+- [ ] Complete logistics research
+- [ ] Finalize transit strategy
+- [ ] Add restaurants and cafés
+- [ ] Build static website
+- [ ] Generate daily email brief
+
 ## Principles
 
 - Markdown is canonical.
