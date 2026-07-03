@@ -1,6 +1,63 @@
 # Transit Ledger
 
-| Date | Day | Required Transit | Optional Transit | Primary Mode | Notes |
-|------|-----|-----------------:|-----------------:|--------------|-------|
-| 2026-07-05 | Arrival | 0 | 0 | Taxi | CDG → Hotel |
-| 2026-07-06 | Historic Paris | 0 | 1 | Walking | Metro only if tired returning to Les Halles |
+## 2026-07-05
+
+<div class="field-facts">
+
+<div>
+<dt>Day</dt>
+<dd>Arrival</dd>
+</div>
+
+<div>
+<dt>Required Transit</dt>
+<dd>0</dd>
+</div>
+
+<div>
+<dt>Optional Transit</dt>
+<dd>0</dd>
+</div>
+
+<div>
+<dt>Primary Mode</dt>
+<dd>Taxi</dd>
+</div>
+
+<div>
+<dt>Notes</dt>
+<dd>CDG → Hotel</dd>
+</div>
+
+</div>
+
+## 2026-07-06
+
+<div class="field-facts">
+
+<div>
+<dt>Day</dt>
+<dd>Historic Paris</dd>
+</div>
+
+<div>
+<dt>Required Transit</dt>
+<dd>0</dd>
+</div>
+
+<div>
+<dt>Optional Transit</dt>
+<dd>1</dd>
+</div>
+
+<div>
+<dt>Primary Mode</dt>
+<dd>Walking</dd>
+</div>
+
+<div>
+<dt>Notes</dt>
+<dd>Metro only if tired returning to Les Halles</dd>
+</div>
+
+</div>
