@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 from typing import Any
 
 from markdown_it import MarkdownIt
@@ -36,7 +37,7 @@ def parse_front_matter(text: str) -> tuple[dict[str, Any], str]:
 def render_markdown(markdown: str) -> str:
     parser = MarkdownIt("commonmark", {"html": True, "linkify": False})
     parser.enable("table")
-    return parser.render(markdown)
+    return _add_external_link_attrs(parser.render(markdown))
 
 
 def load_markdown_page(path: Path) -> MarkdownPage:
@@ -108,3 +109,22 @@ def _parse_scalar(value: str) -> Any:
     if value in {"null", "Null", "~"}:
         return None
     return value.strip("\"'")
+
+
+EXTERNAL_LINK_RE = re.compile(r'<a href="(https?://[^"]+)"(?![^>]*\btarget=)([^>]*)>')
+MAP_HOSTS = (
+    "https://www.google.com/maps/",
+    "https://maps.apple.com/",
+    "https://citymapper.com/",
+)
+
+
+def _add_external_link_attrs(html: str) -> str:
+    def replace(match: re.Match[str]) -> str:
+        href = match.group(1)
+        rest = match.group(2)
+        if href.startswith(MAP_HOSTS):
+            return match.group(0)
+        return f'<a href="{href}" target="_blank" rel="noopener noreferrer"{rest}>'
+
+    return EXTERNAL_LINK_RE.sub(replace, html)
