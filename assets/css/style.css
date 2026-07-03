@@ -728,8 +728,8 @@ h3 {
 
 .field-next {
   margin-top: 1rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid var(--hairline);
+  padding: 0.35rem 0 0.35rem 0.7rem;
+  border-left: 2px solid rgba(125, 183, 255, 0.38);
 }
 
 .field-next p {
