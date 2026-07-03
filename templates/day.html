@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% set asset_prefix = "../" %}
+{% set home_href = "../index.html" %}
+{% set days_href = "../index.html#days" %}
+
+{% block content %}
+<article id="top" class="page">
+  <header class="page-header">
+    <p class="eyebrow">{{ day.page.front_matter.date or day.page.source_path.stem }}</p>
+    <h1>{{ day.page.title }}</h1>
+  </header>
+
+  <nav class="day-nav" aria-label="Day navigation">
+    {% if day.previous %}
+    <a href="{{ day.previous.output_name }}">Previous</a>
+    {% else %}
+    <span>Previous</span>
+    {% endif %}
+    <a href="../index.html#days">All Days</a>
+    {% if day.next %}
+    <a href="{{ day.next.output_name }}">Next</a>
+    {% else %}
+    <span>Next</span>
+    {% endif %}
+  </nav>
+
+  <div class="markdown-body">
+    {{ day.page.html | safe }}
+  </div>
+</article>
+{% endblock %}

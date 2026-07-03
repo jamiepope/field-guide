@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if title == "Paris Field Guide" %}Paris Field Guide{% else %}{{ title }} | Paris Field Guide{% endif %}</title>
+    <link rel="stylesheet" href="{{ asset_prefix | default('') }}assets/style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="{{ home_href | default('index.html') }}">Paris Field Guide</a>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="{{ home_href | default('index.html') }}">Home</a>
+        <a href="{{ days_href | default('index.html#days') }}">Days</a>
+      </nav>
+    </header>
+
+    <main class="site-main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <nav class="bottom-nav" aria-label="Bottom navigation">
+      <a href="{{ home_href | default('index.html') }}" {% if is_home %}aria-current="page"{% endif %}>
+        <span>Home</span>
+      </a>
+      <a href="{{ days_href | default('index.html#days') }}">
+        <span>Days</span>
+      </a>
+      <a href="#top">Top</a>
+    </nav>
+  </body>
+</html>
