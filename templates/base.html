@@ -10,18 +10,6 @@
   <body>
     <header class="site-header">
       <a class="brand" href="{{ home_href | default('index.html') }}">Paris Field Guide</a>
-
-      <nav class="top-nav" aria-label="Primary">
-        <a href="{{ home_href | default('index.html') }}"
-           {% if nav == "home" %}aria-current="page"{% endif %}>
-          Home
-        </a>
-
-        <a href="{{ days_href | default('index.html#days') }}"
-           {% if nav == "days" %}aria-current="page"{% endif %}>
-          Days
-        </a>
-      </nav>
     </header>
 
     <main class="site-main">
