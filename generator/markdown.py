@@ -34,7 +34,7 @@ def parse_front_matter(text: str) -> tuple[dict[str, Any], str]:
 
 
 def render_markdown(markdown: str) -> str:
-    parser = MarkdownIt("commonmark", {"html": False, "linkify": False})
+    parser = MarkdownIt("commonmark", {"html": True, "linkify": False})
     parser.enable("table")
     return parser.render(markdown)
 

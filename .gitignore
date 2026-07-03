@@ -3,6 +3,10 @@
 .idea/
 node_modules/
 dist/
+tmp/
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+.ruff_cache/
+htmlcov/

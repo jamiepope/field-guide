@@ -4,43 +4,89 @@
 <section id="top" class="home-hero">
   <p class="eyebrow">July 5–14, 2026</p>
   <h1>Paris Field Guide</h1>
-  <div class="status-card">
-    <span>Current trip status</span>
+  <p class="hero-copy">A family field guide for Paris, built for quick decisions on a phone.</p>
+  <div class="status-card" aria-label="Current trip status">
+    <span>Trip status</span>
     <strong>In Progress</strong>
   </div>
 </section>
 
-<section class="today-card" aria-labelledby="today-heading">
+<section id="today" class="today-card" aria-labelledby="today-heading">
   <p class="eyebrow">Today</p>
-  <h2 id="today-heading">Trip Overview</h2>
-  <p>Keep the day plan close, the tickets handy, and the guide light enough to use on the street.</p>
+  <h2 id="today-heading">Open This First</h2>
+  {% if primary_day %}
+  <p>Start with the next daily guide, then keep tickets and transit one tap away.</p>
+  <a class="primary-action" href="{{ primary_day.href }}">{{ primary_day.display_title }}</a>
+  {% else %}
+  <p>Daily guides will appear here when day files are available.</p>
+  {% endif %}
+</section>
+
+<section class="quick-grid" aria-label="Guide shortcuts">
+  <a class="quick-card" href="#days">
+    <span>Daily Guides</span>
+    <strong>All days</strong>
+  </a>
+  <a class="quick-card" href="#tickets">
+    <span>Tickets</span>
+    <strong>Carry list</strong>
+  </a>
+  <a class="quick-card" href="#transit">
+    <span>Transit & Logistics</span>
+    <strong>Ledger</strong>
+  </a>
+  <a class="quick-card" href="#food-coffee">
+    <span>Food & Coffee</span>
+    <strong>Placeholder</strong>
+  </a>
 </section>
 
 <section id="days" class="panel">
   <div class="section-heading">
-    <h2>Days</h2>
+    <h2>Daily Guides</h2>
   </div>
   <ol class="day-list">
     {% for day in day_pages %}
     <li>
       <a class="day-link" href="{{ day.href }}">
-        <span>{{ day.page.front_matter.date or day.page.source_path.stem }}</span>
-        <strong>{{ day.page.title }}</strong>
+        <span>{{ day.display_date }}</span>
+        <strong>{{ day.display_title }}</strong>
       </a>
     </li>
     {% endfor %}
   </ol>
 </section>
 
-{% for page in root_pages %}
-{% if page.title == "Tickets" %}
-<section class="panel ticket-summary" aria-labelledby="ticket-summary-heading">
+<section id="food-coffee" class="panel placeholder-panel" aria-labelledby="food-coffee-heading">
+  <p class="eyebrow">Food & Coffee</p>
+  <h2 id="food-coffee-heading">Saved for Later</h2>
+  <p>Add restaurants, cafés, and snack stops here when they are researched.</p>
+</section>
+
+<section id="transit" class="panel placeholder-panel" aria-labelledby="transit-heading">
+  <p class="eyebrow">Transit</p>
+  <h2 id="transit-heading">Transit Ledger</h2>
+  <p>Transit and trip logistics will surface here as the ledger fills in.</p>
+</section>
+
+<section id="tickets" class="panel ticket-summary" aria-labelledby="ticket-summary-heading">
   <div class="section-heading">
-    <h2 id="ticket-summary-heading">Ticket Summary</h2>
+    <h2 id="ticket-summary-heading">Tickets</h2>
   </div>
-  {{ page.html | safe }}
+  <div class="ticket-list">
+    {% for ticket in ticket_items %}
+    <article class="ticket-card">
+      <div>
+        <h3>{{ ticket.item }}</h3>
+        <p>{{ ticket.date }}{% if ticket.time %} · {{ ticket.time }}{% endif %}</p>
+      </div>
+      <strong>{{ ticket.status }}</strong>
+      {% if ticket.notes %}
+      <p class="ticket-note">{{ ticket.notes }}</p>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
   <a class="text-link" href="#top">Back to top</a>
 </section>
-{% endif %}
-{% endfor %}
 {% endblock %}

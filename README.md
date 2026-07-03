@@ -1,9 +1,7 @@
 # Paris Field Guide
 
 This repository is a Markdown-first source of truth for a Paris family trip.
-It stores researched facts, human-readable day plans, logistics, tickets, and transit notes as plain Markdown so a static site can be generated later.
-
-No app has been generated yet. The eventual static site should live in `docs/`.
+It stores researched facts, human-readable day plans, logistics, tickets, and transit notes as plain Markdown and generates a static site into `docs/`.
 
 > **Status:** In Progress
 
@@ -19,7 +17,7 @@ Complete a fully verified Paris Field Guide before departure.
 - [ ] Complete logistics research
 - [ ] Finalize transit strategy
 - [ ] Add restaurants and cafés
-- [ ] Build static website
+- [x] Build static website
 - [ ] Generate daily email brief
 
 ## Principles
@@ -40,17 +38,18 @@ Complete a fully verified Paris Field Guide before departure.
 | `days/` | Daily guide pages for the trip. |
 | `research/` | Verified research notes, split by topic. |
 | `research/attractions/` | Attraction-specific research files. |
-| `research/transport/` | Arrival and transit research files. |
+| `research/logistics/` | Arrival and transit research files. |
+| `assets/css/` | Source stylesheets copied into the generated site. |
+| `assets/js/` | Source JavaScript, if needed later. |
+| `assets/images/` | Source image assets, if needed later. |
 | `logistics.md` | Trip logistics that do not belong to a single day. |
 | `tickets.md` | Ticket tracking and confirmation notes. |
 | `transit-ledger.md` | Transit planning and movement ledger. |
 | `itinerary.md` | High-level trip outline. |
-| `templates/` | Markdown templates for new content. |
-| `docs/` | Future generated static site output. |
-| `assets/` | Future static site assets. |
-| `data/` | Future structured data, if needed. |
-| `references/` | Supporting reference material. |
-| `scripts/` | Future generation or validation scripts. |
+| `templates/` | Jinja HTML templates and Markdown templates for new content. |
+| `generator/` | Python static-site generator modules. |
+| `scripts/` | Build and validation entry points. |
+| `docs/` | Generated static site output only; this is the Cloudflare Pages publish directory. |
 
 ## Research Rules
 
@@ -81,6 +80,46 @@ Use the files in `templates/` when adding new Markdown content:
 
 ## Static Site
 
-Do not generate HTML yet.
+Build the static site with:
+
+```bash
+./build.sh
+```
+
+The build process:
+
+- creates `.venv/` if needed
+- installs `requirements.txt`
+- renders Markdown through the Python generator
+- copies source assets from `assets/` to `docs/assets/`
+- writes generated HTML and copied assets into `docs/`
+
+Preview the generated site locally with:
+
+```bash
+./serve.sh start
+./serve.sh status
+./serve.sh stop
+```
+
+Check generated links and asset references with:
+
+```bash
+.venv/bin/python scripts/check_site.py
+```
+
+Review screenshots should be written to `tmp/screenshots/` and cleaned with `./scripts/clean-screenshots.sh`.
+
+## Cloudflare Pages
+
+Use these Cloudflare Pages settings:
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | None |
+| Build command | `./build.sh` |
+| Output directory | `docs` |
+
+See [DEPLOY.md](DEPLOY.md) for deployment setup and checklist.
+
 Do not create a React app.
-Do not add dependencies unless the project explicitly moves into a generation phase.
