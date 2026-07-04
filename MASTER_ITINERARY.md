@@ -186,16 +186,76 @@ Status: TO PLAN
 ---
 
 # Friday · July 10
+
 ## Theme
+
 Transition Day
 
-### Anchor
+## Anchor
 
-- Check out of Novotel
-- Move to Hotel #2
-- Seine Dinner Cruise
+Hotel change followed by the Seine Dinner Cruise.
 
-Status: TO PLAN
+## Goal
+
+Keep the day intentionally light. Move hotels without stress, settle into the new neighborhood, then enjoy a memorable first evening on the Seine.
+
+## Morning
+
+- Breakfast near the Novotel.
+- Pack.
+- Check out.
+- Taxi to Hôtel Rochechouart, 55 Boulevard de Rochechouart (Metro Line 4 is the direct alternative).
+- Leave luggage if the room is not ready.
+
+## Late Morning
+
+Explore the neighborhood around Hôtel Rochechouart, at the foot of Montmartre.
+
+Keep it within walking distance.
+
+Find:
+
+- Coffee
+- Bakery (Rue des Martyrs is a good market street a few minutes west)
+- Pharmacy if needed
+- Metro station (Anvers, Pigalle, Barbès–Rochechouart)
+- Small grocery or Monoprix
+
+Become familiar with the area.
+
+## Lunch
+
+Choose a relaxed café close to the hotel.
+
+No reservations.
+
+No rushing.
+
+## Afternoon
+
+- Check into the hotel.
+- Shower.
+- Recharge phones and batteries.
+- Rest for an hour.
+- Dress for the evening.
+
+## Evening
+
+Travel to the Seine Dinner Cruise departure point.
+
+Arrive 30–45 minutes early.
+
+Enjoy the cruise.
+
+## After the Cruise
+
+Walk for a while if everyone feels up to it.
+
+Otherwise return directly to Hôtel Rochechouart.
+
+## Why This Works
+
+Changing hotels can consume more energy than expected. Rather than trying to squeeze in sightseeing, use the day to reset before the busiest sightseeing days of the trip.
 
 ---
 
