@@ -13,16 +13,36 @@
     </header>
 
     <main class="site-main">
-<article id="top" class="page">
+<article id="top" class="page" data-day-date="2026-07-08">
   <header class="page-header">
+    <p class="page-date" data-page-date="2026-07-08">2026-07-08</p>
     <h1>Wednesday, July 8</h1>
+    <p class="page-subtitle">RAISE Summit</p>
   </header>
 
   <nav class="day-nav" aria-label="Day navigation">
-    <a href="2026-07-07.html">Previous</a>
+    <a href="2026-07-07.html">← Yesterday</a>
     <a href="../index.html#days">All Days</a>
-    <a href="2026-07-09.html">Next</a>
+    <a href="2026-07-09.html">Tomorrow →</a>
   </nav>
+
+  <div class="day-anchor">
+    <span class="day-anchor-label">Today's Anchor</span>
+    <strong class="day-anchor-value">Conference — all day</strong>
+  </div>
+
+  <section class="day-checklist" aria-label="Before you leave">
+    <p class="day-checklist-label">Before You Leave</p>
+    <ul>
+      <li>Passport / ID</li>
+      <li>Tickets &mdash; offline</li>
+      <li>Phone + battery</li>
+      <li>Water bottle</li>
+      <li>Comfortable shoes</li>
+      <li>Hotel key &amp; address</li>
+      <li>RAISE badge &amp; agenda</li>
+    </ul>
+  </section>
 
   <div class="markdown-body"><h2>Today's Goal</h2>
 <p>Make the conference day easy: arrive fed, know where you are going, keep notes, and leave the evening flexible.</p>
@@ -219,6 +239,74 @@
 <p>Confirm the official RAISE Summit agenda, badge pickup instructions, and venue entrance before leaving the hotel.</p>
 </div>
 </article>
+<script>
+  // Dateline — format, or drop when the title already spells out the date
+  (function () {
+    var el = document.querySelector(".page-date[data-page-date]");
+    if (!el) return;
+    var d = new Date(el.getAttribute("data-page-date") + "T00:00:00");
+    if (isNaN(d.getTime())) return;
+    var title = (document.querySelector(".page-header h1") || {}).textContent || "";
+    var mLong = d.toLocaleDateString("en-GB", { month: "long" });
+    var wLong = d.toLocaleDateString("en-GB", { weekday: "long" });
+    if (title.indexOf(wLong) !== -1 ||
+        (title.indexOf(mLong) !== -1 && new RegExp("\\b" + d.getDate() + "\\b").test(title))) {
+      el.remove();
+      return;
+    }
+    var wd = d.toLocaleDateString("en-GB", { weekday: "short" });
+    var mo = d.toLocaleDateString("en-GB", { month: "short" });
+    el.textContent = wd + " \u00b7 " + d.getDate() + " " + mo + " " + d.getFullYear();
+  })();
+
+  // Consolidate: drop the redundant in-body "Before Leaving the Hotel" section
+  // and move the standard checklist to sit under "Today's Goal".
+  (function () {
+    var md = document.querySelector(".markdown-body");
+    var cl = document.querySelector(".day-checklist");
+    if (!md) return;
+    md.querySelectorAll("h2").forEach(function (h) {
+      if (h.textContent.trim().toLowerCase() !== "before leaving the hotel") return;
+      var n = h.nextElementSibling;
+      var kill = [h];
+      while (n && n.tagName !== "UL") { kill.push(n); n = n.nextElementSibling; }
+      if (n) {
+        kill.push(n);
+        if (n.nextElementSibling && n.nextElementSibling.tagName === "HR") kill.push(n.nextElementSibling);
+      }
+      kill.forEach(function (x) { x.remove(); });
+    });
+    if (cl) {
+      var firstHr = md.querySelector("hr");
+      if (firstHr) md.insertBefore(cl, firstHr);
+      else md.insertBefore(cl, md.firstChild);
+    }
+  })();
+
+  // "Before You Leave" — tappable, remembered per day
+  (function () {
+    var list = document.querySelector(".day-checklist ul");
+    var art = document.querySelector("[data-day-date]");
+    if (!list || !art) return;
+    var key = "checklist:" + art.getAttribute("data-day-date");
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) {}
+    list.querySelectorAll("li").forEach(function (li, i) {
+      if (saved[i]) li.classList.add("checked");
+      li.setAttribute("role", "button");
+      li.setAttribute("tabindex", "0");
+      function toggle() {
+        li.classList.toggle("checked");
+        saved[i] = li.classList.contains("checked");
+        try { localStorage.setItem(key, JSON.stringify(saved)); } catch (e) {}
+      }
+      li.addEventListener("click", toggle);
+      li.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+      });
+    });
+  })();
+</script>
     </main>
 
     <nav class="bottom-nav" aria-label="Bottom navigation">

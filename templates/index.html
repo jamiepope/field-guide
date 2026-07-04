@@ -1,43 +1,30 @@
 {% extends "base.html" %}
 
+{% set subtitles = {
+  "2026-07-05": "Arrival Day",
+  "2026-07-06": "Historic Paris",
+  "2026-07-07": "Left Bank & Catacombs",
+  "2026-07-08": "RAISE Summit",
+  "2026-07-09": "RAISE Summit",
+  "2026-07-10": "Transition Day",
+  "2026-07-11": "Museum Day",
+  "2026-07-12": "Versailles",
+  "2026-07-13": "Final Day in Paris"
+} %}
+
 {% block content %}
 <section id="top" class="home-hero">
   <p class="eyebrow">July 5–14, 2026</p>
   <h1>Paris Field Guide</h1>
   <p class="hero-copy">A family field guide for Paris, built for quick decisions on a phone.</p>
-  <div class="status-card" aria-label="Current trip status">
-    <span>Trip status</span>
-    <strong>In Progress</strong>
-  </div>
-</section>
-
-<section id="today" class="today-card" aria-labelledby="today-heading">
-  <p class="eyebrow">Today</p>
-  <h2 id="today-heading">Open This First</h2>
-  {% if primary_day %}
-  <p>Start with the next daily guide, then keep tickets and transit one tap away.</p>
-  <a class="primary-action" href="{{ primary_day.href }}">{{ primary_day.display_title }}</a>
-  {% else %}
-  <p>Daily guides will appear here when day files are available.</p>
-  {% endif %}
-</section>
-
-<section class="quick-grid" aria-label="Guide shortcuts">
-  <a class="quick-card" href="#days">
-    <span>Daily Guides</span>
-    <strong>All days</strong>
-  </a>
-  <a class="quick-card" href="#tickets">
-    <span>Tickets</span>
-    <strong>Carry list</strong>
-  </a>
-  <a class="quick-card" href="#transit">
-    <span>Transit & Logistics</span>
-    <strong>Ledger</strong>
-  </a>
-  <a class="quick-card" href="#food-coffee">
-    <span>Food & Coffee</span>
-    <strong>Placeholder</strong>
+  <a class="trip-now" id="trip-now" href="{{ primary_day.href if primary_day else 'index.html' }}">
+    <div class="trip-now-head">
+      <span class="trip-now-kicker" data-trip-kicker>Day 1 of 10</span>
+      <span class="trip-now-count" data-trip-count>01 / 10</span>
+    </div>
+    <div class="trip-now-bar"><span data-trip-fill></span></div>
+    <strong class="trip-now-title" data-trip-title>{{ subtitles.get(primary_day.display_date) if primary_day else 'Paris' }}</strong>
+    <span class="trip-now-cue" data-trip-cue>Open today&#39;s guide →</span>
   </a>
 </section>
 
@@ -55,18 +42,6 @@
     </li>
     {% endfor %}
   </ol>
-</section>
-
-<section id="food-coffee" class="panel placeholder-panel" aria-labelledby="food-coffee-heading">
-  <p class="eyebrow">Food & Coffee</p>
-  <h2 id="food-coffee-heading">Saved for Later</h2>
-  <p>Add restaurants, cafés, and snack stops here when they are researched.</p>
-</section>
-
-<section id="transit" class="panel placeholder-panel" aria-labelledby="transit-heading">
-  <p class="eyebrow">Transit</p>
-  <h2 id="transit-heading">Transit Ledger</h2>
-  <p>Transit and trip logistics will surface here as the ledger fills in.</p>
 </section>
 
 <section id="tickets" class="panel ticket-summary" aria-labelledby="ticket-summary-heading">
@@ -89,4 +64,68 @@
   </div>
   <a class="text-link" href="#top">Back to top</a>
 </section>
+
+<script type="application/json" id="trip-days">
+[
+{% for d in day_pages %}
+{"date": {{ d.display_date | tojson }}, "title": {{ d.display_title | tojson }}, "theme": {{ (subtitles.get(d.display_date) or "") | tojson }}, "href": {{ d.href | tojson }}}{{ "," if not loop.last else "" }}
+{% endfor %}
+]
+</script>
+<script>
+  (function () {
+    var el = document.getElementById("trip-now");
+    if (!el) return;
+    var days;
+    try { days = JSON.parse(document.getElementById("trip-days").textContent); }
+    catch (e) { return; }
+    if (!days || !days.length) return;
+
+    var START = "2026-07-05";   // day 1 of the trip
+    var TOTAL = 10;             // calendar days, including departure
+
+    var start = new Date(START + "T00:00:00");
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var idx = Math.round((today - start) / 86400000); // 0-based day index
+
+    var kicker = el.querySelector("[data-trip-kicker]");
+    var title = el.querySelector("[data-trip-title]");
+    var cue = el.querySelector("[data-trip-cue]");
+    var count = el.querySelector("[data-trip-count]");
+    var fill = el.querySelector("[data-trip-fill]");
+    var k, t, href, pct, cnt;
+
+    function themeOf(i) { return (days[i] && days[i].theme) ? days[i].theme : (days[i] ? days[i].title : ""); }
+    function pad(n) { return (n < 10 ? "0" : "") + n; }
+
+    if (idx < 0) {                         // before the trip
+      var away = -idx;
+      k = away === 1 ? "Starts tomorrow" : "Starts in " + away + " days";
+      t = themeOf(0); href = days[0].href;
+      pct = 0; cnt = "00 / " + TOTAL;
+      if (cue) cue.textContent = "Preview day 1 \u2192";
+    } else if (idx >= TOTAL) {             // after the trip
+      k = "Trip complete";
+      t = "Merci, Paris"; href = null;
+      pct = 100; cnt = TOTAL + " / " + TOTAL;
+      if (cue) cue.style.display = "none";
+    } else {                               // during the trip
+      var wd = today.toLocaleDateString("en-GB", { weekday: "long" });
+      k = "Today \u00b7 " + wd;
+      if (idx < days.length) { t = themeOf(idx); href = days[idx].href; }
+      else { t = "Departure \u2014 heading home"; href = null; }
+      pct = Math.round(((idx + 1) / TOTAL) * 100);
+      cnt = pad(idx + 1) + " / " + TOTAL;
+      if (cue && href) cue.textContent = "Open today\u2019s guide \u2192";
+      else if (cue) cue.style.display = "none";
+    }
+
+    if (kicker) kicker.textContent = k;
+    if (title) title.textContent = t;
+    if (count) count.textContent = cnt;
+    if (fill) fill.style.width = pct + "%";
+    if (href) { el.setAttribute("href", href); }
+    else { el.removeAttribute("href"); el.style.cursor = "default"; }
+  })();
+</script>
 {% endblock %}
