@@ -8,15 +8,6 @@ from generator.markdown import MarkdownPage, load_markdown_page
 from generator.templates import create_environment
 
 
-ROOT_PAGES = [
-    "README.md",
-    "itinerary.md",
-    "logistics.md",
-    "tickets.md",
-    "transit-ledger.md",
-]
-
-
 @dataclass(frozen=True)
 class SitePaths:
     root: Path
@@ -61,12 +52,11 @@ def build_site(root: Path) -> None:
     (paths.docs / "days").mkdir(parents=True, exist_ok=True)
 
     environment = create_environment(paths.templates)
-    root_pages = [load_markdown_page(paths.root / name) for name in ROOT_PAGES]
     day_pages = _load_day_pages(paths.days)
     ticket_items = _parse_ticket_items(paths.root / "tickets.md")
 
     _write_static_assets(paths)
-    _write_index(paths, environment, root_pages, day_pages, ticket_items)
+    _write_index(paths, environment, day_pages, ticket_items)
     _write_days(paths, environment, day_pages)
 
 
@@ -108,14 +98,12 @@ def _load_day_pages(days_dir: Path) -> list[DayPage]:
 def _write_index(
     paths: SitePaths,
     environment,
-    root_pages: list[MarkdownPage],
     day_pages: list[DayPage],
     ticket_items: list[TicketItem],
 ) -> None:
     template = environment.get_template("index.html")
     html = template.render(
         title="Paris Field Guide",
-        root_pages=root_pages,
         day_pages=day_pages,
         primary_day=day_pages[0] if day_pages else None,
         ticket_items=ticket_items,
